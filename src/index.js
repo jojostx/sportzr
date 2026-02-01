@@ -2,6 +2,7 @@ import 'dotenv/config';
 import express from "express";
 import { db } from "./db/db.js";
 import { sql } from "drizzle-orm";
+import { matchesRouter } from './routes/matches.js';
 
 const app = express();
 const PORT = process.env.PORT || 8000;
@@ -13,6 +14,8 @@ app.get("/", async (req, res) => {
     
     res.json({ message: "Welcome to Sportzr API", result });
 });
+
+app.use("/matches", matchesRouter);
 
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);

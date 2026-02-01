@@ -10,7 +10,6 @@ export const matches = sqliteTable("matches", {
     homeTeam: text('home_team').notNull(),
     awayTeam: text('away_team').notNull(),
     status: text('status', { enum: matchStatusEnum }).notNull(),
-    matchDate: integer('match_date', { mode: 'timestamp' }).notNull(),
     startTime: integer('start_time', { mode: 'timestamp' }),
     endTime: integer('end_time', { mode: 'timestamp' }),
     location: text('location').notNull(),
