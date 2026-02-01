@@ -7,11 +7,7 @@ export const MATCH_STATUS = Object.fromEntries(
   matchStatusEnum.map((status) => [status.toUpperCase(), status])
 );
 
-// 3. Reusable ISO datetime schema
-// "offset: true" is default, but explicit is better. checks for T separator and timezone (Z or +00:00)
-const isoDateTimeSchema = z.string().datetime({
-  message: "Invalid ISO date-time string (e.g. 2024-01-01T12:00:00Z)"
-});
+const isoDateTimeSchema = z.iso.datetime();
 
 // 4. Schema Definitions
 export const listMatchesQuerySchema = z.object({
