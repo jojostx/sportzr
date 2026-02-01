@@ -1,0 +1,41 @@
+{
+  "name": "sportzr",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "node --watch src/index.js",
+    "start": "node src/index.js",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "node src/db/migrate.js",
+    "db:push": "drizzle-kit push",
+    "db:studio": "drizzle-kit studio"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jojostx/sportzr.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/jojostx/sportzr/issues"
+  },
+  "homepage": "https://github.com/jojostx/sportzr#readme",
+  "dependencies": {
+    "@libsql/client": "^0.17.0",
+    "better-sqlite3": "^12.6.2",
+    "body-parser": "^2.2.2",
+    "dotenv": "^17.2.3",
+    "drizzle-orm": "^0.45.1",
+    "express": "^5.2.1"
+  },
+  "overrides": {
+    "tar": "^7.5.3"
+  },
+  "devDependencies": {
+    "@types/better-sqlite3": "^7.6.13",
+    "drizzle-kit": "^0.31.8"
+  }
+}
