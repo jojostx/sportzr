@@ -7,6 +7,7 @@ import { desc } from "drizzle-orm";
 
 export const matchesRouter = Router();
 
+const isProduction = process.env.NODE_ENV === 'production';
 const MAX_LIMIT = 100;
 
 // Define your routes here, e.g. GET /matches, POST /matches, etc.
@@ -16,14 +17,13 @@ matchesRouter.get("/", async (req, res) => {
     if (!parsed.success) {
         return res.status(400).json({
             error: 'Invalid Query Parameters',
-            details: JSON.stringify(parsed.error)
+            details: parsed.error.issues
         });
     }
     // Implement logic to list matches based on parsed.data
     const limit = Math.min(parsed.data.limit ?? 50, MAX_LIMIT);
 
     try {
-        // Example: Fetch matches from the database with limit
         const matchesList = await db
             .select()
             .from(matches)
@@ -46,7 +46,7 @@ matchesRouter.post("/", async (req, res) => {
     if (!parsed.success) {
         return res.status(400).json({
             error: 'Invalid Payload',
-            details: JSON.stringify(parsed.error)
+            details: parsed.error.issues
         });
     }
 
@@ -66,7 +66,7 @@ matchesRouter.post("/", async (req, res) => {
             .status(500)
             .json({
                 error: "Failed to create match.",
-                details: JSON.stringify(error)
+                details: isProduction ? null : JSON.stringify(error)
             });
     }
 });
