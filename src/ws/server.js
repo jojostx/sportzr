@@ -22,12 +22,24 @@ export function attachWebSocketServer(server) {
     });
 
     wss.on('connection', (ws) => {
+        ws.isAlive = true;
+        ws.on('pong', () => { ws.isAlive = true; });
+
         sendJson(ws, { type: 'welcome', message: 'Welcome to the Sportzr WebSocket server!' });
 
         ws.on('error', (error) => {
             console.error('WebSocket error:', error);
         });
     });
+
+    const interval = setInterval(() => {
+        wss.clients.forEach((ws) => {
+            if (ws.isAlive === false) return ws.terminate();
+
+            ws.isAlive = false;
+            ws.ping();
+        })
+    }, 30000);
 
     function broadcastMatchCreated(match) {
         broadcastJson(wss, { type: 'match_created', data: match });
